@@ -1,0 +1,241 @@
+<div>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid d-flex justify-content-between">
+      <a class="navbar-brand" href="#">User Management</a>
+      <button
+        class="btn btn-outline-success"
+        type="button"
+        (click)="changeView()"
+      >
+        {{ newUser ? "View List" : "Add User" }}
+      </button>
+    </div>
+  </nav>
+
+  <!-- User Form -->
+  <div *ngIf="newUser" class="container mt-4">
+    <div class="card shadow-lg p-4">
+      <h4 class="text-center mb-4">User Registration</h4>
+      <form class="row g-3">
+        <div class="col-md-6">
+          <label class="form-label">First Name</label>
+          <input
+            [(ngModel)]="userObj.fName"
+            name="fName"
+            type="text"
+            class="form-control"
+            placeholder="Enter first name"
+            required
+          />
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Last Name</label>
+          <input
+            [(ngModel)]="userObj.lName"
+            name="lName"
+            type="text"
+            class="form-control"
+            placeholder="Enter last name"
+            required
+          />
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Username</label>
+          <input
+            [(ngModel)]="userObj.uName"
+            name="uName"
+            type="text"
+            class="form-control"
+            placeholder="Choose a username"
+            required
+          />
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">City</label>
+          <input
+            [(ngModel)]="userObj.city"
+            name="city"
+            type="text"
+            class="form-control"
+            placeholder="Enter your city"
+            required
+          />
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">State</label>
+          <select
+            class="form-select"
+            [(ngModel)]="userObj.state"
+            name="state"
+            required
+          >
+            <option disabled value="">Choose...</option>
+            <option>Patna</option>
+            <option>Gaya</option>
+            <option>PanWell</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Zip Code</label>
+          <input
+            [(ngModel)]="userObj.zip"
+            name="zip"
+            type="number"
+            class="form-control"
+            placeholder="Enter ZIP code"
+            required
+          />
+        </div>
+        <div class="col-12 text-center">
+          <button
+            class="btn btn-primary w-50 mt-3"
+            type="button"
+            (click)="onSave()"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- User List Table -->
+  <div class="container mt-4" *ngIf="!newUser">
+    <h3 class="text-center">User List</h3>
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+          <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Username</th>
+            <th>City</th>
+            <th>State</th>
+            <th>ZIP</th>
+            <th class="text-center">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of userList; let i = index">
+            <td>{{ user.userId }}</td>
+            <td>{{ user.fName }}</td>
+            <td>{{ user.lName }}</td>
+            <td>{{ user.uName }}</td>
+            <td>{{ user.city }}</td>
+            <td>{{ user.state }}</td>
+            <td>{{ user.zip }}</td>
+            <td class="text-center">
+              <div class="d-flex justify-content-center gap-2">
+                <button class="btn btn-warning btn-sm" (click)="editUser(user)">
+                  Edit
+                </button>
+                <button class="btn btn-danger btn-sm" (click)="deleteUser(i)">
+                  Delete
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Edit User Modal -->
+  <div class="modal fade show d-block" *ngIf="selectedUser" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content shadow-lg">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit User</h5>
+          <button
+            type="button"
+            class="btn-close"
+            (click)="closeModal()"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label class="form-label">First Name</label>
+              <input
+                [(ngModel)]="selectedUser.fName"
+                name="fName"
+                type="text"
+                class="form-control"
+                disabled
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Last Name</label>
+              <input
+                [(ngModel)]="selectedUser.lName"
+                name="lName"
+                type="text"
+                class="form-control"
+                disabled
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Username</label>
+              <input
+                [(ngModel)]="selectedUser.uName"
+                name="uName"
+                type="text"
+                class="form-control"
+                disabled
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">City</label>
+              <input
+                [(ngModel)]="selectedUser.city"
+                name="city"
+                type="text"
+                class="form-control"
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">State</label>
+              <select
+                class="form-select"
+                [(ngModel)]="selectedUser.state"
+                name="state"
+              >
+                <option>Patna</option>
+                <option>Gaya</option>
+                <option>PanWell</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Zip</label>
+              <input
+                [(ngModel)]="selectedUser.zip"
+                name="zip"
+                type="number"
+                class="form-control"
+              />
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer d-flex gap-2">
+          <button
+            type="button"
+            class="btn btn-primary flex-grow-1"
+            style="max-width: 70%"
+            (click)="saveEditedUser()"
+          >
+            Save changes
+          </button>
+          <button
+            type="button"
+            class="btn btn-secondary flex-grow-1"
+            style="max-width: 30%"
+            (click)="closeModal()"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

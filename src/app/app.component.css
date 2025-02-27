@@ -1,0 +1,72 @@
+/* Navbar */
+.navbar {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 12px 20px;
+  }
+  
+  .navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+  }
+  
+  .btn-outline-success {
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .btn-outline-success:hover {
+    background-color: #198754;
+    color: white;
+  }
+  
+  /* Form Styling */
+  form {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-label {
+    font-weight: 600;
+  }
+  
+  input,
+  select {
+    border-radius: 8px;
+    padding: 10px;
+  }
+  
+  /* Submit Button */
+  .btn-primary {
+    width: 100%;
+    font-size: 1.1rem;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0d6efd;
+  }
+  
+  /* Table Styling */
+  .table {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .table thead {
+    background: #343a40;
+    color: white;
+  }
+  
+  .table tbody tr:hover {
+    background: rgba(0, 0, 0, 0.05);
+  }
+  
+  /* Responsive Table */
+  .table-responsive {
+    overflow-x: auto;
+    border-radius: 10px;
+  }
+  

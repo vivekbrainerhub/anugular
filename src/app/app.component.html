@@ -117,28 +117,42 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let user of userList; let i = index">
-            <td>{{ user.userId }}</td>
-            <td>{{ user.fName }}</td>
-            <td>{{ user.lName }}</td>
-            <td>{{ user.uName }}</td>
-            <td>{{ user.city }}</td>
-            <td>{{ user.state }}</td>
-            <td>{{ user.zip }}</td>
-            <td class="text-center">
-              <div class="d-flex justify-content-center gap-2">
-                <button class="btn btn-warning btn-sm" (click)="editUser(user)">
-                  Edit
-                </button>
-                <button class="btn btn-danger btn-sm" (click)="deleteUser(i)">
-                  Delete
-                </button>
-              </div>
-            </td>
-          </tr>
+          <ng-container *ngIf="userList.length > 0; else noData">
+            <tr *ngFor="let user of userList; let i = index">
+              <td>{{ user.userId }}</td>
+              <td>{{ user.fName }}</td>
+              <td>{{ user.lName }}</td>
+              <td>{{ user.uName }}</td>
+              <td>{{ user.city }}</td>
+              <td>{{ user.state }}</td>
+              <td>{{ user.zip }}</td>
+              <td class="text-center">
+                <div class="d-flex justify-content-center gap-2">
+                  <button
+                    class="btn btn-warning btn-sm"
+                    (click)="editUser(user)"
+                  >
+                    Edit
+                  </button>
+                  <button class="btn btn-danger btn-sm" (click)="deleteUser(i)">
+                    Delete
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </ng-container>
         </tbody>
       </table>
     </div>
+
+    <!-- No Data Template -->
+    <ng-template #noData>
+      <tr>
+        <td colspan="8" class="text-center text-danger">
+          No users found. Please add a user.
+        </td>
+      </tr>
+    </ng-template>
   </div>
 
   <!-- Edit User Modal -->

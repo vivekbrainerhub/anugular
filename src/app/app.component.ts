@@ -21,6 +21,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     const localData = localStorage.getItem('userData');
     this.userList = localData ? JSON.parse(localData) : [];
+    console.log('User List:', this.userList); // Debugging
   }
 
   changeView() {
@@ -29,7 +30,7 @@ export class AppComponent implements OnInit {
 
   onSave() {
     if (!this.userObj.fName || !this.userObj.lName || !this.userObj.uName) {
-      alert('Please fill out all required fields.');
+      this.toastr.error('Please fill out all required fields.', 'Error');
       return;
     }
 
@@ -41,14 +42,16 @@ export class AppComponent implements OnInit {
     this.userList = [...this.userList, { ...this.userObj }];
     localStorage.setItem('userData', JSON.stringify(this.userList));
     this.toastr.success('User added successfully', 'Success');
+    console.log('Saved User:', this.userObj); // Debugging
     this.userObj = new User();
   }
 
   deleteUser(index: number) {
     this.userList.splice(index, 1);
-    this.userList = [...this.userList]; 
+    this.userList = [...this.userList]; // Ensure change detection triggers
     localStorage.setItem('userData', JSON.stringify(this.userList));
     this.toastr.warning('User deleted successfully', 'Deleted');
+    console.log('Updated User List:', this.userList); // Debugging
   }
 
   editUser(user: User) {
